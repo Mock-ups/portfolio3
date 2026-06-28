@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Inter } from "next/font/google";
+import { Inter, Roboto_Flex } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { Header } from "@/components/Header";
@@ -9,6 +9,14 @@ import { Footer } from "@/components/Footer";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+// Variable font (weight + width axes) for the interactive TextPressure headline.
+const robotoFlex = Roboto_Flex({
+  subsets: ["latin"],
+  axes: ["wdth"],
+  variable: "--font-pressure",
   display: "swap",
 });
 
@@ -57,7 +65,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${eudoxus.variable} h-full antialiased`}
+      className={`${inter.variable} ${eudoxus.variable} ${robotoFlex.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <Header />

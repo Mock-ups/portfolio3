@@ -4,10 +4,6 @@
  * Each project reads like a sheet in a drawing set: numbered and specified.
  */
 
-const UNSPLASH = "https://images.unsplash.com/photo-";
-const img = (id: string, w = 1600) =>
-  `${UNSPLASH}${id}?auto=format&fit=crop&q=80&w=${w}`;
-
 export type Project = {
   slug: string;
   index: string; // sheet number, e.g. "01"
@@ -24,6 +20,17 @@ export type Project = {
   software: string[]; // tools used
   cover: string;
   gallery: string[];
+  /** rotate the gallery plates 90° left (for sideways source photos) */
+  rotateGallery?: boolean;
+  /** extra titled galleries below the main gallery */
+  extraGalleries?: {
+    title: string;
+    images: string[];
+    /** plate arrangement; defaults to "two-then-one" (2-up row, then full-width) */
+    layout?: "two-then-one" | "one-then-two";
+    /** override the project's rotation for this section; "none" disables it */
+    rotate?: "left" | "right" | "none";
+  }[];
 };
 
 export const projects: Project[] = [
@@ -36,20 +43,51 @@ export const projects: Project[] = [
     location: "Perinthalmanna",
     meta: "Commercial Interior Exterior 3d Design",
     year: 2025,
-    area: "320 m²",
+    area: "",
     summary:
-      "A stone-lined family home visualized in warm, top-lit afternoon light.",
+      "A commercial project in Perinthalmanna, visualized inside and out — interior and exterior 3D design rendered in photorealistic detail (2025).",
     description: [
-      "A full interior visualization for a double-height family residence. The brief asked for a calm, material-led home, so the renders were built around a single shaft of north light moving across travertine and oiled oak.",
-      "Lighting was studied at three times of day before settling on a late-afternoon mood — soft contrast, long shadows, and warm bounce off the stone.",
+      "An interior and exterior 3D visualization for Secura Centre, a commercial mall in Perinthalmanna. The brief was to picture the whole shopping experience before construction — circulation, materials and lighting resolved across the building inside and out.",
+      "The interior design covered the public spaces in detail: the main mall interior, the food court, and both the ladies' and gents' washrooms — each visualized with its own finishes, fixtures and lighting so the client could sign off every zone from the renders.",
     ],
     software: ["3ds Max", "V-Ray", "Photoshop"],
     cover: "/projects/p1.jpeg",
+    rotateGallery: true,
     gallery: [
-      img("1586023492125-27b2c045efd7"),
-      img("1600210492486-724fe5c67fb0"),
-      img("1600566753086-00f18fb6b3ea"),
-      img("1615875605825-5eb9bb5d52ac"),
+      "/projects/p1/p11.jpeg",
+      "/projects/p1/p115.jpeg",
+      "/projects/p1/p116.jpeg",
+      "/projects/p1/p117.jpeg",
+    ],
+    extraGalleries: [
+      {
+        title: "Dining and food court area interior Design",
+        images: [
+          "/projects/p1/p12.jpeg",
+          "/projects/p1/p13.jpeg",
+          "/projects/p1/p14.jpeg",
+        ],
+      },
+      {
+        title: "Ladies washroom interior design",
+        layout: "one-then-two",
+        rotate: "none",
+        images: [
+          "/projects/p1/p16.jpeg",
+          "/projects/p1/p17.jpeg",
+          "/projects/p1/p18.jpeg",
+        ],
+      },
+      {
+        title: "Gents washroom interior design",
+        rotate: "none",
+        images: [
+          "/projects/p1/p19.jpeg",
+          "/projects/p1/p112.jpeg",
+          "/projects/p1/p110.jpeg",
+        ],
+      },
+
     ],
   },
   {
@@ -61,19 +99,20 @@ export const projects: Project[] = [
     location: "Kodungallur",
     meta: "Exterior Facade design Kodungallur",
     year: 2025,
-    area: "140 m²",
-    summary: "A pared-back apartment loft rendered as one continuous space.",
+    area: "",
+    summary:
+      "A commercial building in Kodungallur, visualized through its exterior facade — form, materials and light resolved in photorealistic 3D before construction (2025).",
     description: [
-      "A compact city apartment visualized as a single calm volume, with a full run of linen-toned cabinetry absorbing the kitchen, wardrobe and library.",
-      "The render leans on soft daylight and a muted palette, with brushed-steel details picked out to give the materials a believable, tactile read.",
+      "An exterior facade visualization for Secura Centre, a commercial building in Kodungallur. The brief was to resolve the building's street presence before construction — massing, proportion and the rhythm of the frontage all worked out in 3D.",
+      "The facade was studied in daylight and after dark, with cladding materials, glazing and signage rendered in photorealistic detail so the client could see exactly how the building would read from the street and sign off the elevation from the images.",
     ],
     software: ["SketchUp", "Lumion", "Photoshop"],
     cover: "/projects/p2.jpeg",
     gallery: [
-      img("1618221195710-dd6b41faaea6"),
-      img("1502005229762-cf1b2da7c5d6"),
-      img("1631679706909-1844bbd07221"),
-      img("1556228453-efd6c1ff04f6"),
+      "/projects/p2/p22.jpeg",
+      "/projects/p2/p23.jpeg",
+      "/projects/p2/p24.jpeg",
+      "/projects/p2/p22.jpeg",
     ],
   },
   {
@@ -81,92 +120,113 @@ export const projects: Project[] = [
     index: "03",
     title: "Residential project",
     category: "Residential",
-    type: "Residential Visualization",
+    type: "Exterior Visualization",
     location: "Calicut",
     meta: "Residential project",
     year: 2024,
-    area: "410 m²",
-    summary: "A 60-cover restaurant rendered in low, warm, layered light.",
+    area: "",
+    summary:
+      "A private home in Calicut, visualized from the outside — its exterior form, materials and landscaping rendered in photorealistic 3D.",
     description: [
-      "A restaurant interior visualized as a sequence of rooms, each with its own light level — from a bright bar to an intimate back dining room.",
-      "Reclaimed oak, blackened steel and hand-thrown ceramics were textured and lit to feel worked and warm, the way the space would read mid-service.",
+      "An exterior 3D visualization for a private residence in Calicut. The brief was to picture the house from the street and garden before it was built — massing, roofline and the way the elevations sit on the plot all resolved in 3D.",
+      "Cladding, stonework, glazing and landscaping were rendered in natural daylight to show exactly how the home would look on completion, giving the owners a clear view to sign off the design.",
     ],
     software: ["3ds Max", "V-Ray", "Photoshop"],
     cover: "/projects/p3.jpeg",
     gallery: [
-      img("1600607687939-ce8a6c25118c"),
-      img("1616486338812-3dadae4b4ace"),
-      img("1583847268964-b28dc8f51f92"),
-      img("1540574163026-643ea20ade25"),
+      "/projects/p3/p32.jpeg",
+      "/projects/p3/p33.jpeg",
+      "/projects/p3/p34.jpeg",
     ],
   },
   {
     slug: "Residential-project-2",
     index: "04",
-    title: "Residential project",
+    title: "Living and Dining Interior Design",
     category: "Residential",
     type: "Interior Visualization",
     location: "Perinthalmanna",
     year: 2023,
-    area: "880 m²",
-    summary: "An open-plan workspace visualized as a calm working studio.",
+    area: "",
+    summary:
+      "A living and dining space in Perinthalmanna, visualized as one warm, connected room — layout, materials and lighting resolved in photorealistic 3D.",
     description: [
-      "A workplace visualization that set out to feel less like an office and more like a studio. Acoustic baffles, rugs and planting define quiet and active zones without partitions.",
-      "A neutral shell keeps the focus on people and work — colour enters only through the artwork and greenery placed in the scene.",
+      "An interior 3D visualization of a combined living and dining area for a home in Perinthalmanna. The brief was to see how the two spaces would flow together before fit-out — furniture layout, circulation and sightlines all resolved in 3D.",
+      "Wall finishes, flooring, the TV unit and dining setup were rendered with warm, layered lighting so the owners could picture the finished room day and evening, and sign off the palette and furniture from the images.",
     ],
     software: ["SketchUp", "Lumion"],
     cover: "/projects/p4.jpeg",
     gallery: [
-      img("1565182999561-18d7dc61c393"),
-      img("1497366754035-f200968a6e72"),
-      img("1600121848594-d8644e57abab"),
-      img("1600210492486-724fe5c67fb0"),
+      "/projects/p4/P42.jpeg",
+      "/projects/p4/P43.jpeg",
     ],
   },
   {
-    slug: "marrow-cafe",
+    slug: "dining-and-open-kitchen-interior",
     index: "05",
-    title: "Marrow Café",
-    category: "Commercial",
+    title: "Dining and open kitchen interior",
+    category: "Residential",
     type: "Interior Visualization",
     location: "Manjeri",
     year: 2023,
-    area: "95 m²",
-    summary: "A small café distilled to one cast-terrazzo counter and good light.",
+    area: "",
+    summary:
+      "A dining area and open kitchen visualized as one connected interior — layout, finishes and lighting resolved in photorealistic 3D.",
     description: [
-      "A corner café visualized around a single monolithic counter in cast terrazzo, with everything else kept quiet so the room reads in a glance.",
-      "Warm plaster, pale timber and a long bench seat were rendered to make a small footprint feel generous from open to close.",
+      "An interior 3D visualization of a dining area and open kitchen designed as one connected space. The brief was to see how the kitchen, island and dining setup would work together before fit-out — layout, circulation and sightlines all resolved in 3D.",
+      "Cabinetry, countertops, backsplash and the dining furniture were rendered with warm, layered lighting so the owners could picture the finished room and sign off the finishes and layout from the images.",
     ],
     software: ["D5 Render", "Photoshop"],
-    cover: img("1600607687939-ce8a6c25118c"),
+    cover: "/projects/p5.jpeg",
     gallery: [
-      img("1600566753086-00f18fb6b3ea"),
-      img("1586023492125-27b2c045efd7"),
-      img("1615875605825-5eb9bb5d52ac"),
-      img("1502005229762-cf1b2da7c5d6"),
+      "/projects/p5/p51.jpeg",
+      "/projects/p5/p52.jpeg",
+      "/projects/p5/p53.jpeg",
     ],
   },
   {
-    slug: "solis-apartment",
+    slug: "family-living-area-interior-design",
     index: "06",
-    title: "Solis Apartment",
+    title: "Family living area interior design",
     category: "Residential",
     type: "Interior Visualization",
     location: "Palakkad",
     year: 2023,
-    area: "110 m²",
-    summary: "A sun-tracking apartment whose tones warm from morning to night.",
+    area: "",
+    summary:
+      "A family living area visualized as a warm, everyday gathering space — layout, materials and lighting resolved in photorealistic 3D.",
     description: [
-      "An apartment visualization tuned to the southern light, with each room's palette set to the time of day it is most used.",
-      "Lime-washed walls, terracotta and aged brass were rendered to shift in colour as the sun moves across the rooms.",
+      "An interior 3D visualization of a family living area for a home in Palakkad. The brief was to picture an everyday gathering space before fit-out — seating layout, the TV wall and circulation all resolved in 3D.",
+      "Wall finishes, flooring, the feature wall and furniture were rendered with warm, layered lighting so the family could see how the room would feel day to evening, and sign off the palette and layout from the images.",
     ],
     software: ["3ds Max", "V-Ray", "Adobe Illustrator"],
-    cover: img("1493809842364-78817add7ffb"),
+    cover: "/projects/p6.jpeg",
     gallery: [
-      img("1618221195710-dd6b41faaea6"),
-      img("1631679706909-1844bbd07221"),
-      img("1556228453-efd6c1ff04f6"),
-      img("1583847268964-b28dc8f51f92"),
+      "/projects/p6/p61.jpeg",
+      "/projects/p6/p62.jpeg",
+    ],
+  },
+  {
+    slug: "bedroom-interior-design",
+    index: "07",
+    title: "Bedroom interior design",
+    category: "Residential",
+    type: "Interior Visualization",
+    location: "Palakkad",
+    year: 2024,
+    area: "",
+    summary:
+      "A bedroom visualized as a calm, restful retreat — layout, materials and lighting resolved in photorealistic 3D.",
+    description: [
+      "An interior 3D visualization of a bedroom for a home in Palakkad. The brief was to picture the room before fit-out — bed placement, wardrobe and circulation all resolved in 3D.",
+      "Wall finishes, flooring, the headboard wall and wardrobe were rendered with soft, warm lighting so the owners could see how the room would feel and sign off the palette and layout from the images.",
+    ],
+    software: ["3ds Max", "V-Ray", "Photoshop"],
+    cover: "/projects/p7.jpeg",
+    gallery: [
+      "/projects/p7/p71.jpeg",
+      "/projects/p7/p72.jpeg",
+      "/projects/p7/p73.jpeg",
     ],
   },
 ];

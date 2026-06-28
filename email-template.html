@@ -1,0 +1,132 @@
+<!--
+  EmailJS template for RMS design studio — contact form notifications.
+
+  HOW TO USE
+  1. EmailJS dashboard → Email Templates → create/edit your template.
+  2. Paste this whole file into the template's "Content" (HTML) editor.
+  3. In the template settings:
+       To email     : your inbox (the address you connected)
+       From name    : RMS design studio
+       Reply To     : {{from_email}}
+       Subject      : New enquiry — {{project_type}}
+  4. These variables must match the values sent from the contact form:
+       {{from_name}}  {{from_email}}  {{project_type}}  {{message}}
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>New enquiry</title>
+  </head>
+  <body style="margin:0; padding:0; background-color:#f3f6fc;">
+    <table
+      role="presentation"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      style="background-color:#f3f6fc; padding:32px 16px;"
+    >
+      <tr>
+        <td align="center">
+          <table
+            role="presentation"
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            style="max-width:560px; background-color:#ffffff; border:1px solid #e6e6e6; border-radius:8px; overflow:hidden; font-family:'Helvetica Neue',Arial,sans-serif;"
+          >
+            <!-- Header -->
+            <tr>
+              <td style="background-color:#090b19; padding:24px 28px;">
+                <p style="margin:0; color:#ffffff; font-size:18px; font-weight:700; letter-spacing:-0.01em;">
+                  RMS design studio<span style="color:#0082f3;">.</span>
+                </p>
+                <p style="margin:6px 0 0; color:rgba(255,255,255,0.6); font-size:11px; letter-spacing:0.18em; text-transform:uppercase;">
+                  New enquiry from the website
+                </p>
+              </td>
+            </tr>
+
+            <!-- Intro -->
+            <tr>
+              <td style="padding:28px 28px 8px;">
+                <p style="margin:0; color:#090b19; font-size:16px; line-height:1.6;">
+                  You&rsquo;ve received a new enquiry from
+                  <strong>{{from_name}}</strong>.
+                </p>
+              </td>
+            </tr>
+
+            <!-- Details -->
+            <tr>
+              <td style="padding:12px 28px 8px;">
+                <table
+                  role="presentation"
+                  width="100%"
+                  cellpadding="0"
+                  cellspacing="0"
+                  style="border-collapse:collapse;"
+                >
+                  <tr>
+                    <td style="padding:12px 0; border-top:1px solid #e6e6e6; color:#758696; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; width:38%; vertical-align:top;">
+                      Name
+                    </td>
+                    <td style="padding:12px 0; border-top:1px solid #e6e6e6; color:#090b19; font-size:15px; vertical-align:top;">
+                      {{from_name}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:12px 0; border-top:1px solid #e6e6e6; color:#758696; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; vertical-align:top;">
+                      Email
+                    </td>
+                    <td style="padding:12px 0; border-top:1px solid #e6e6e6; font-size:15px; vertical-align:top;">
+                      <a href="mailto:{{from_email}}" style="color:#0082f3; text-decoration:none;">{{from_email}}</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:12px 0; border-top:1px solid #e6e6e6; color:#758696; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; vertical-align:top;">
+                      Project type
+                    </td>
+                    <td style="padding:12px 0; border-top:1px solid #e6e6e6; color:#090b19; font-size:15px; vertical-align:top;">
+                      {{project_type}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:12px 0; border-top:1px solid #e6e6e6; color:#758696; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; vertical-align:top;">
+                      Message
+                    </td>
+                    <td style="padding:12px 0; border-top:1px solid #e6e6e6; color:#090b19; font-size:15px; line-height:1.6; vertical-align:top; white-space:pre-line;">
+                      {{message}}
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- CTA -->
+            <tr>
+              <td style="padding:20px 28px 32px;">
+                <a
+                  href="mailto:{{from_email}}?subject=Re:%20your%20enquiry"
+                  style="display:inline-block; background-color:#090b19; color:#ffffff; font-size:12px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; text-decoration:none; padding:14px 24px; border-radius:100px;"
+                >
+                  Reply to {{from_name}}
+                </a>
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td style="background-color:#f3f6fc; padding:18px 28px; border-top:1px solid #e6e6e6;">
+                <p style="margin:0; color:#758696; font-size:12px;">
+                  Sent from the contact form at rms design studio.
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

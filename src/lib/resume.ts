@@ -15,7 +15,6 @@ export const experience: Job[] = [
     org: "UNC Architecture",
     location: "Malappuram",
     period: "2025 — 2026",
-    current: true,
     description:
       "Translating architectural concepts into immersive 3D visualizations — turning complex conceptual briefs into detailed technical plans and high-fidelity, photorealistic renderings.",
   },
@@ -56,11 +55,6 @@ export const education = [
     institution: "Kalladi Abduhaji Higher Secondary School",
     period: "2017 — 2019",
   },
-  {
-    qualification: "SSLC",
-    institution: "Moulana English Medium School",
-    period: "2016 — 2017",
-  },
 ];
 
 export const skills = [
@@ -73,6 +67,29 @@ export const skills = [
   "Photoshop",
   "Adobe Illustrator",
 ];
+
+/**
+ * Per-software badge. `icon` points to a logo file in /public/icons; when set,
+ * the real logo is shown. Otherwise the `short` monogram + `color` is used.
+ * Drop official SVG/PNG logos into public/icons and add the path here.
+ */
+export const softwareMeta: Record<
+  string,
+  { short: string; color: string; icon?: string }
+> = {
+  SketchUp: { short: "Sk", color: "#005F9E", icon: "/icons/sketchup.svg" },
+  AutoCAD: { short: "Ac", color: "#E51050", icon: "/icons/autocad.svg" },
+  Lumion: { short: "Lu", color: "#15A0A6", icon: "/icons/lumion.png" },
+  "D5 Render": { short: "D5", color: "#2D6BF7", icon: "/icons/d5render.png" },
+  "3ds Max": { short: "3", color: "#0C8CE9", icon: "/icons/3dsmax.svg" },
+  "V-Ray": { short: "VR", color: "#1CA0E2", icon: "/icons/vray.svg" },
+  Photoshop: { short: "Ps", color: "#31A8FF", icon: "/icons/photoshop.svg" },
+  "Adobe Illustrator": {
+    short: "Ai",
+    color: "#FF9A00",
+    icon: "/icons/illustrator.svg",
+  },
+};
 
 export const services = [
   {

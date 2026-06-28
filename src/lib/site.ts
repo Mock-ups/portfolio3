@@ -14,7 +14,7 @@ export const site = {
 
   tagline: "Translating architectural concepts into photorealistic 3D.",
   intro:
-    "I'm a civil engineer with a strong passion for design, specializing in 3D architectural and interior visualization. I blend technical knowledge with creative design to deliver high-quality, photorealistic visuals for residential and commercial projects.",
+    "Combining engineering precision with creative design to deliver realistic architectural visualizations.",
 
   email: "mhdrameesak@gmail.com",
   phone: "+91 75618 71134",

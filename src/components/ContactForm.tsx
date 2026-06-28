@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { site } from "@/lib/site";
 import { Magnetic } from "./motion/Magnetic";
@@ -9,7 +10,13 @@ import { cn } from "@/lib/utils";
 const EASE = [0.16, 1, 0.3, 1] as const;
 const ERROR = "#ea384c";
 
+// EmailJS config — set these in .env.local (see .env.local.example).
+const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
 type Errors = Partial<Record<"name" | "email" | "message", string>>;
+type Status = "idle" | "sending" | "sent" | "error";
 
 const projectTypes = [
   "Residential visualization",
@@ -22,7 +29,7 @@ const projectTypes = [
 const labelCls =
   "block text-xs font-semibold uppercase tracking-[0.12em] text-slate mb-2";
 const fieldCls =
-  "w-full bg-bg border border-line rounded-md px-4 py-3 text-dark placeholder:text-slate/60 focus:border-dark focus:outline-none transition-colors";
+  "w-full bg-bg border border-line rounded-md px-4 py-3 text-dark placeholder:text-slate/60 focus:border-dark focus:outline-none transition-colors disabled:opacity-60";
 
 export function ContactForm() {
   const reduce = useReducedMotion();
@@ -33,13 +40,14 @@ export function ContactForm() {
     message: "",
   });
   const [errors, setErrors] = useState<Errors>({});
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
 
   function update<K extends keyof typeof values>(key: K, v: string) {
     setValues((prev) => ({ ...prev, [key]: v }));
     if (errors[key as keyof Errors]) {
       setErrors((prev) => ({ ...prev, [key]: undefined }));
     }
+    if (status === "error") setStatus("idle");
   }
 
   function validate(): Errors {
@@ -52,23 +60,44 @@ export function ContactForm() {
     return e;
   }
 
-  function handleSubmit(ev: React.FormEvent) {
+  async function handleSubmit(ev: React.FormEvent) {
     ev.preventDefault();
     const e = validate();
     setErrors(e);
     if (Object.keys(e).length > 0) return;
 
-    const subject = `New enquiry — ${values.type}`;
-    const body = `Name: ${values.name}\nEmail: ${values.email}\nType: ${values.type}\n\n${values.message}`;
-    window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+      console.warn("EmailJS env vars are not set — see .env.local.example");
+      setStatus("error");
+      return;
+    }
+
+    setStatus("sending");
+    try {
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        {
+          from_name: values.name,
+          from_email: values.email,
+          project_type: values.type,
+          message: values.message,
+        },
+        { publicKey: PUBLIC_KEY }
+      );
+      setStatus("sent");
+    } catch (err) {
+      const e = err as { status?: number; text?: string };
+      console.error("EmailJS send failed:", e?.status, e?.text || err);
+      setStatus("error");
+    }
   }
+
+  const sending = status === "sending";
 
   return (
     <AnimatePresence mode="wait">
-      {sent ? (
+      {status === "sent" ? (
         <motion.div
           key="success"
           initial={reduce ? false : { opacity: 0, y: 16 }}
@@ -78,18 +107,27 @@ export function ContactForm() {
         >
           <p className="subtitle mb-5">
             <span className="subtitle__dot" />
-            Message ready
+            Message sent
           </p>
-          <h3 className="h-lg">Thank you, {values.name.split(" ")[0] || "there"}.</h3>
+          <h3 className="h-lg">
+            Thank you, {values.name.split(" ")[0] || "there"}.
+          </h3>
           <p className="mt-4 max-w-[48ch] text-slate leading-relaxed">
-            Your email app should have opened with the message drafted. If it
-            didn&rsquo;t, write to me directly at{" "}
+            Your message has been sent — I&rsquo;ll get back to you within two
+            days. You can also reach me directly at{" "}
             <a href={`mailto:${site.email}`} className="ulink text-dark">
               {site.email}
             </a>
-            . I reply within two days.
+            .
           </p>
-          <button type="button" onClick={() => setSent(false)} className="mt-8 btn btn--outline">
+          <button
+            type="button"
+            onClick={() => {
+              setValues({ name: "", email: "", type: projectTypes[0], message: "" });
+              setStatus("idle");
+            }}
+            className="mt-8 btn btn--outline"
+          >
             Send another
           </button>
         </motion.div>
@@ -112,6 +150,7 @@ export function ContactForm() {
                 name="name"
                 type="text"
                 autoComplete="name"
+                disabled={sending}
                 value={values.name}
                 onChange={(e) => update("name", e.target.value)}
                 aria-invalid={!!errors.name}
@@ -136,6 +175,7 @@ export function ContactForm() {
                 name="email"
                 type="email"
                 autoComplete="email"
+                disabled={sending}
                 value={values.email}
                 onChange={(e) => update("email", e.target.value)}
                 aria-invalid={!!errors.email}
@@ -159,6 +199,7 @@ export function ContactForm() {
             <select
               id="type"
               name="type"
+              disabled={sending}
               value={values.type}
               onChange={(e) => update("type", e.target.value)}
               className={cn(fieldCls, "appearance-none cursor-pointer")}
@@ -179,6 +220,7 @@ export function ContactForm() {
               id="message"
               name="message"
               rows={5}
+              disabled={sending}
               value={values.message}
               onChange={(e) => update("message", e.target.value)}
               aria-invalid={!!errors.message}
@@ -194,12 +236,25 @@ export function ContactForm() {
             )}
           </div>
 
+          {status === "error" && (
+            <p className="text-sm" style={{ color: ERROR }}>
+              Something went wrong sending your message. Please try again, or
+              email me directly at{" "}
+              <a href={`mailto:${site.email}`} className="underline">
+                {site.email}
+              </a>
+              .
+            </p>
+          )}
+
           <Magnetic>
-            <button type="submit" className="btn">
-              Send enquiry
-              <span className="btn__arrow" aria-hidden>
-                →
-              </span>
+            <button type="submit" className="btn" disabled={sending}>
+              {sending ? "Sending…" : "Send enquiry"}
+              {!sending && (
+                <span className="btn__arrow" aria-hidden>
+                  →
+                </span>
+              )}
             </button>
           </Magnetic>
         </motion.form>

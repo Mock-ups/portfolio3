@@ -2,7 +2,7 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 import { skills, services } from "@/lib/resume";
 import { featuredProjects, projects } from "@/lib/projects";
-import { AnimatedHeading } from "@/components/motion/AnimatedHeading";
+import { TextPressure } from "@/components/motion/TextPressure";
 import { Reveal } from "@/components/motion/Reveal";
 import { CurtainReveal } from "@/components/motion/CurtainReveal";
 import { Magnetic } from "@/components/motion/Magnetic";
@@ -66,12 +66,13 @@ export default function Home() {
 
         {/* Foreground content — fades in AFTER the column reveal completes */}
         <div className="relative z-10 shell min-h-screen flex flex-col justify-center items-center text-center text-white py-32">
-          <h1 className="h-xxl max-w-[15ch]">
-            <AnimatedHeading
-              trigger="load"
-              delay={1.45}
-              lines={["Bringing spaces", "to life in 3D."]}
-            />
+          <h1
+            className="h-xxl max-w-[15ch]"
+            style={{ fontSize: "clamp(3rem, 10vw, 7.5rem)" }}
+          >
+            <Reveal delay={1.45}>
+              <TextPressure lines={["Bringing spaces", "to life in 3D."]} />
+            </Reveal>
           </h1>
 
           <Reveal delay={1.7}>
