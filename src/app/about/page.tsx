@@ -1,177 +1,132 @@
 import type { Metadata } from "next";
 import { site } from "@/lib/site";
+import { experience, education, skills } from "@/lib/resume";
 import { AnimatedHeading } from "@/components/motion/AnimatedHeading";
 import { Reveal } from "@/components/motion/Reveal";
-import { Counter } from "@/components/motion/Counter";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";
-import { DimensionDivider } from "@/components/DimensionDivider";
 
 export const metadata: Metadata = {
   title: "About",
-  description: `${site.name} is a ${site.city}-based interior design studio. Our approach, process and people.`,
+  description: `${site.name} — ${site.role} based in ${site.city}, ${site.country}. Experience, education and software.`,
 };
-
-// PLACEHOLDER — replace with the studio's real process copy.
-const process = [
-  {
-    n: "01",
-    t: "Brief",
-    d: "We start in your space, listening for how you actually live and work before a single line is drawn.",
-  },
-  {
-    n: "02",
-    t: "Concept",
-    d: "Plans, references and material studies set the architecture of the idea — proportion, light and circulation first.",
-  },
-  {
-    n: "03",
-    t: "Documentation",
-    d: "A complete drawing set and specification, so every joint, finish and fitting is resolved before we reach site.",
-  },
-  {
-    n: "04",
-    t: "Realisation",
-    d: "We run the build with trusted makers, protecting the detail all the way through to the final fixing.",
-  },
-];
-
-// PLACEHOLDER recognition — swap for real awards / press.
-const recognition = [
-  "2024 — Restaurant & Bar Design Awards · Shortlist",
-  "2023 — Dezeen Awards · Longlist",
-  "2023 — AD100 Próximo · Featured",
-  "2022 — FRAME Awards · Finalist",
-];
 
 export default function AboutPage() {
   return (
     <>
       {/* ── Intro ─────────────────────────────────────────── */}
-      <section className="shell pt-10 md:pt-16">
-        <p className="eyebrow">About — The studio</p>
-        <h1 className="display-xl mt-6 md:mt-8">
+      <section className="shell pt-16 md:pt-24">
+        <p className="subtitle">
+          <span className="subtitle__dot" />
+          About — {site.name}
+        </p>
+        <h1 className="h-xxl mt-7 max-w-[16ch]">
           <AnimatedHeading
             trigger="load"
             delay={0.1}
-            lines={["A small studio,", "a long view."]}
+            lines={["Civil engineer with", "a designer's eye."]}
           />
         </h1>
         <Reveal delay={0.4}>
-          <p className="mt-8 max-w-[56ch] text-lg md:text-xl leading-relaxed text-ink/90">
-            {site.intro} We keep the practice deliberately small so the people
-            who design your project are the people who see it through.
-          </p>
+          <p className="lede mt-7 max-w-[58ch]">{site.intro}</p>
         </Reveal>
       </section>
 
-      {/* ── Studio image ──────────────────────────────────── */}
+      {/* ── Image ─────────────────────────────────────────── */}
       <section className="shell mt-14 md:mt-20">
         <Reveal y={28}>
-          <div className="plate">
+          <div className="media">
             <ParallaxImage
               src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=1920"
-              alt="Inside the studio"
+              alt="At work"
               sizes="100vw"
               intensity={50}
               className="aspect-16/10 md:aspect-21/9"
             />
           </div>
-          <p className="mt-3 font-mono text-xs text-graphite">
-            The studio — {site.city}, {site.country}
-          </p>
         </Reveal>
       </section>
 
-      {/* ── Philosophy ────────────────────────────────────── */}
-      <section className="shell mt-24 md:mt-36">
+      {/* ── Statement ─────────────────────────────────────── */}
+      <section className="shell section">
         <Reveal>
-          <p className="font-display text-2xl md:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.12] max-w-[18ch] md:max-w-[20ch]">
-            Good interiors aren&rsquo;t styled on. They are{" "}
-            <span className="text-redline">built in</span> — drawn with the same
-            rigour as the architecture they sit within.
+          <p className="h-xl max-w-[22ch]">
+            I transform complex briefs into detailed plans and{" "}
+            <span className="text-accent">photorealistic</span> renderings.
           </p>
         </Reveal>
       </section>
 
-      {/* ── Approach ──────────────────────────────────────── */}
-      <section className="shell mt-24 md:mt-36">
-        <DimensionDivider label="Approach — four phases" />
-        <div className="mt-12 md:mt-16 grid md:grid-cols-2 gap-x-10 gap-y-12">
-          {process.map((step, i) => (
-            <Reveal key={step.n} delay={(i % 2) * 0.08}>
-              <div className="flex gap-5 border-t border-line pt-5">
-                <span className="font-mono text-sm text-redline shrink-0">
-                  {step.n}
-                </span>
-                <div>
-                  <h3 className="font-display text-xl md:text-2xl font-semibold tracking-tight">
-                    {step.t}
-                  </h3>
-                  <p className="mt-3 text-graphite leading-relaxed max-w-[42ch]">
-                    {step.d}
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Stats ─────────────────────────────────────────── */}
-      <section className="shell mt-24 md:mt-36">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-line border border-line">
-          {[
-            { n: 12, s: "", label: "Years practising" },
-            { n: 40, s: "+", label: "Projects delivered" },
-            { n: 9, s: "", label: "Cities" },
-            { n: 6, s: "", label: "Design awards" },
-          ].map((stat) => (
-            <div key={stat.label} className="bg-paper p-6 md:p-8">
-              <p className="font-display text-4xl md:text-6xl font-bold tracking-tight">
-                <Counter value={stat.n} suffix={stat.s} />
-              </p>
-              <p className="mt-2 font-mono text-[0.7rem] uppercase tracking-[0.12em] text-graphite">
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── People + recognition ──────────────────────────── */}
-      <section className="shell mt-24 md:mt-36 grid md:grid-cols-12 gap-12">
-        <div className="md:col-span-7">
-          <p className="eyebrow mb-6">People</p>
-          {/* PLACEHOLDER principal — replace name + bio */}
-          <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
-            Mara Vance
-          </h2>
-          <p className="mt-1 font-mono text-xs uppercase tracking-[0.14em] text-graphite">
-            Founder &amp; Principal Designer
+      {/* ── Experience ────────────────────────────────────── */}
+      <section className="bg-white">
+        <div className="shell section">
+          <p className="subtitle mb-5">
+            <span className="subtitle__dot" />
+            Experience
           </p>
-          <Reveal delay={0.05}>
-            <p className="mt-6 max-w-[56ch] leading-relaxed text-ink/90">
-              Mara founded {site.name} in {site.founded} after a decade in
-              architecture practice. She leads every project from first sketch
-              to final walkthrough, working closely with a tight circle of
-              joiners, lighting designers and makers.
-            </p>
-            <p className="mt-4 max-w-[56ch] leading-relaxed text-graphite">
-              The studio takes on a small number of projects each year — enough
-              to stay personal, few enough to stay precise.
-            </p>
-          </Reveal>
+          <h2 className="h-xl mb-12 md:mb-16">Where I&rsquo;ve worked</h2>
+
+          <div>
+            {experience.map((job, i) => (
+              <Reveal key={`${job.org}-${i}`} delay={(i % 2) * 0.06}>
+                <div className="grid md:grid-cols-12 gap-3 md:gap-6 border-t border-line-strong/50 py-7 md:py-9">
+                  <div className="md:col-span-3">
+                    <p className="text-sm font-medium">{job.period}</p>
+                    {job.current && (
+                      <span className="mt-2 inline-flex items-center gap-2 text-xs font-medium text-accent">
+                        <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                        Current
+                      </span>
+                    )}
+                  </div>
+                  <div className="md:col-span-9">
+                    <h3 className="h-md">{job.role}</h3>
+                    <p className="mt-1 text-sm font-medium text-slate">
+                      {job.org} · {job.location}
+                    </p>
+                    <p className="mt-4 text-slate leading-relaxed max-w-[60ch]">
+                      {job.description}
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Skills + Education ─────────────────────────────── */}
+      <section className="shell section grid md:grid-cols-12 gap-12 md:gap-16">
+        <div className="md:col-span-7">
+          <p className="subtitle mb-6">
+            <span className="subtitle__dot" />
+            Software
+          </p>
+          <ul className="grid grid-cols-2 gap-px bg-line border border-line rounded-md overflow-hidden">
+            {skills.map((skill) => (
+              <li
+                key={skill}
+                className="bg-bg px-5 py-4 flex items-center gap-3 text-sm font-medium"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                {skill}
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="md:col-span-5">
-          <p className="eyebrow mb-6">Recognition</p>
+          <p className="subtitle mb-6">
+            <span className="subtitle__dot" />
+            Education
+          </p>
           <ul>
-            {recognition.map((r) => (
-              <li
-                key={r}
-                className="font-mono text-sm text-ink py-3 border-b border-line first:border-t"
-              >
-                {r}
+            {education.map((ed) => (
+              <li key={ed.qualification} className="py-5 border-b border-line first:border-t">
+                <div className="flex items-baseline justify-between gap-4">
+                  <h3 className="h-md text-lg">{ed.qualification}</h3>
+                  <span className="text-sm text-slate shrink-0">{ed.period}</span>
+                </div>
+                <p className="mt-1 text-sm text-slate">{ed.institution}</p>
               </li>
             ))}
           </ul>

@@ -10,10 +10,10 @@ function Track({ items }: { items: string[] }) {
     <div className="marquee__track" aria-hidden>
       {items.map((item, i) => (
         <Fragment key={i}>
-          <span className="font-display text-2xl md:text-4xl tracking-tight text-ink">
+          <span className="font-display text-xl md:text-3xl font-bold tracking-tight text-dark">
             {item}
           </span>
-          <span className="text-redline text-xl md:text-2xl">✳</span>
+          <span className="w-2 h-2 rounded-full bg-accent shrink-0" />
         </Fragment>
       ))}
     </div>

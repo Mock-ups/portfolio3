@@ -1,41 +1,42 @@
 import Link from "next/link";
 import { nav, site } from "@/lib/site";
-import { DimensionDivider } from "./DimensionDivider";
 
 export function Footer() {
   return (
-    <footer className="mt-32 md:mt-48">
-      {/* CTA band */}
+    <footer className="relative z-40 bg-black text-white mt-24 md:mt-40">
       <div className="shell">
-        <DimensionDivider label={`${site.city} — ${site.country}`} />
-        <div className="py-16 md:py-24">
-          <p className="eyebrow mb-6">Start a project</p>
+        {/* CTA band */}
+        <div className="py-20 md:py-28 border-b border-white/10">
           <Link
             href="/contact"
-            className="font-display font-bold tracking-tight leading-[0.95] block text-[clamp(2.2rem,7vw,5.5rem)] hover:text-redline transition-colors"
+            className="font-display font-extrabold tracking-tight leading-[0.98] block whitespace-nowrap text-[clamp(1.5rem,6.5vw,5rem)] hover:text-accent transition-colors"
           >
-            Let&rsquo;s shape your space.
+            Shape your ideal space.
           </Link>
-        </div>
-      </div>
-
-      {/* Columns */}
-      <div className="shell">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10 py-12 border-t border-line">
-          <div className="col-span-2 md:col-span-1">
-            <p className="font-display text-lg font-bold tracking-tight">
-              Form <span className="text-redline">&amp;</span> Field
-            </p>
-            <p className="mt-3 text-sm text-graphite max-w-[28ch]">
-              {site.role}. {site.tagline}
-            </p>
+          {/* Brand statement on the left, CTA button on the right */}
+          <div className="mt-10 flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+            <div className="max-w-[46ch]">
+              <p className="font-display text-lg md:text-xl font-extrabold tracking-tight">
+                {site.brand}<span className="text-accent">.</span>
+              </p>
+              <p className="mt-3 text-sm md:text-base text-white/60">
+                {site.role}. {site.tagline}
+              </p>
+            </div>
+            <Link href="/contact" className="btn btn--light shrink-0">
+              Get in touch
+              <span className="btn__arrow" aria-hidden>
+                →
+              </span>
+            </Link>
           </div>
+        </div>
 
+        {/* Columns */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 py-14">
           <nav aria-label="Footer">
-            <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-graphite mb-4">
-              Navigate
-            </p>
-            <ul className="space-y-2 text-sm">
+            <p className="subtitle subtitle--light mb-5 text-[0.65rem]">Menu</p>
+            <ul className="space-y-3 text-sm text-white/70">
               <li>
                 <Link href="/" className="ulink">
                   Home
@@ -52,12 +53,10 @@ export function Footer() {
           </nav>
 
           <div>
-            <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-graphite mb-4">
-              Contact
-            </p>
-            <ul className="space-y-2 text-sm">
+            <p className="subtitle subtitle--light mb-5 text-[0.65rem]">Contact</p>
+            <ul className="space-y-3 text-sm text-white/70">
               <li>
-                <a href={`mailto:${site.email}`} className="ulink break-all">
+                <a href={`mailto:${site.email}`} className="ulink wrap-break-word">
                   {site.email}
                 </a>
               </li>
@@ -66,15 +65,13 @@ export function Footer() {
                   {site.phone}
                 </a>
               </li>
-              <li className="text-graphite max-w-[26ch]">{site.address}</li>
+              <li className="text-white/50 max-w-[24ch]">{site.locationLine}</li>
             </ul>
           </div>
 
           <div>
-            <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-graphite mb-4">
-              Follow
-            </p>
-            <ul className="space-y-2 text-sm">
+            <p className="subtitle subtitle--light mb-5 text-[0.65rem]">Follow</p>
+            <ul className="space-y-3 text-sm text-white/70">
               {site.socials.map((s) => (
                 <li key={s.label}>
                   <a
@@ -92,11 +89,9 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between py-8 lg:pb-28 border-t border-line font-mono text-[0.65rem] uppercase tracking-[0.12em] text-graphite">
-          <p>
-            © {site.founded}–2026 {site.name}
-          </p>
-          <p>Drawing set · Rev. A</p>
+        <div className="flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between py-8 border-t border-white/10 text-xs text-white/50">
+          <p>© 2026 {site.brand}</p>
+          <p>{site.availability}</p>
         </div>
       </div>
     </footer>

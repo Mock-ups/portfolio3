@@ -1,7 +1,7 @@
 /**
- * Project register — PLACEHOLDER content with verified Unsplash imagery.
- * Replace `cover`, `gallery`, and copy with the studio's real projects.
- * The portfolio reads like a drawing index: each project is a numbered sheet.
+ * Visualization portfolio — reframed from the studio template.
+ * Imagery is PLACEHOLDER (Unsplash) — swap `cover`/`gallery` for real renders.
+ * Each project reads like a sheet in a drawing set: numbered and specified.
  */
 
 const UNSPLASH = "https://images.unsplash.com/photo-";
@@ -12,35 +12,39 @@ export type Project = {
   slug: string;
   index: string; // sheet number, e.g. "01"
   title: string;
-  category: "Residential" | "Hospitality" | "Workspace";
-  type: string; // finer typology
+  category: "Residential" | "Commercial" | "Interior";
+  type: string; // visualization type
   location: string;
+  /** optional override for the card meta line (defaults to category · type · location) */
+  meta?: string;
   year: number;
-  area: string; // gross area
+  area: string;
   summary: string; // one-line, used in lists
   description: string[]; // paragraphs for the detail page
-  services: string[];
+  software: string[]; // tools used
   cover: string;
   gallery: string[];
 };
 
 export const projects: Project[] = [
   {
-    slug: "travertine-house",
+    slug: "secura-centre-perinthalmanna",
     index: "01",
-    title: "Travertine House",
-    category: "Residential",
-    type: "Family residence",
-    location: "Porto, PT",
-    year: 2024,
+    title: "Secura Centre Perinthalmanna",
+    category: "Commercial",
+    type: "Interior Exterior 3d Design",
+    location: "Perinthalmanna",
+    meta: "Commercial Interior Exterior 3d Design",
+    year: 2025,
     area: "320 m²",
-    summary: "A stone-lined home organised around a single shaft of north light.",
+    summary:
+      "A stone-lined family home visualized in warm, top-lit afternoon light.",
     description: [
-      "A full interior architecture for a family of four, planned around an existing double-height void. We re-cut the circulation so daily life gathers along one warm, top-lit spine.",
-      "Travertine, oiled oak and lime plaster carry through every room, varied only in finish. The restraint lets the changing daylight do the decorating.",
+      "A full interior visualization for a double-height family residence. The brief asked for a calm, material-led home, so the renders were built around a single shaft of north light moving across travertine and oiled oak.",
+      "Lighting was studied at three times of day before settling on a late-afternoon mood — soft contrast, long shadows, and warm bounce off the stone.",
     ],
-    services: ["Interior architecture", "Joinery design", "FF&E", "Lighting"],
-    cover: img("1600585154340-be6161a56a0c"),
+    software: ["3ds Max", "V-Ray", "Photoshop"],
+    cover: "/projects/p1.jpeg",
     gallery: [
       img("1586023492125-27b2c045efd7"),
       img("1600210492486-724fe5c67fb0"),
@@ -49,21 +53,22 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "linen-loft",
+    slug: "secura-centre-kodungallur",
     index: "02",
-    title: "Linen Loft",
-    category: "Residential",
-    type: "Apartment",
-    location: "Lisbon, PT",
-    year: 2023,
+    title: "Secura Centre Kodungallur",
+    category: "Commercial",
+    type: "Exterior Facade Design",
+    location: "Kodungallur",
+    meta: "Exterior Facade design Kodungallur",
+    year: 2025,
     area: "140 m²",
-    summary: "A pared-back loft where storage disappears into the walls.",
+    summary: "A pared-back apartment loft rendered as one continuous space.",
     description: [
-      "A compact city apartment rethought as one continuous room. A single run of floor-to-ceiling cabinetry absorbs the kitchen, wardrobe and library behind a calm linen-toned plane.",
-      "Soft textiles and a muted palette keep the volume quiet; brushed steel details mark only what you touch.",
+      "A compact city apartment visualized as a single calm volume, with a full run of linen-toned cabinetry absorbing the kitchen, wardrobe and library.",
+      "The render leans on soft daylight and a muted palette, with brushed-steel details picked out to give the materials a believable, tactile read.",
     ],
-    services: ["Space planning", "Bespoke cabinetry", "Material design"],
-    cover: img("1505691938895-1758d7feb511"),
+    software: ["SketchUp", "Lumion", "Photoshop"],
+    cover: "/projects/p2.jpeg",
     gallery: [
       img("1618221195710-dd6b41faaea6"),
       img("1502005229762-cf1b2da7c5d6"),
@@ -72,21 +77,22 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "oak-and-ore",
+    slug: "Residential-project",
     index: "03",
-    title: "Oak & Ore",
-    category: "Hospitality",
-    type: "Restaurant",
-    location: "Copenhagen, DK",
-    year: 2023,
+    title: "Residential project",
+    category: "Residential",
+    type: "Residential Visualization",
+    location: "Calicut",
+    meta: "Residential project",
+    year: 2024,
     area: "410 m²",
-    summary: "A 60-cover dining room built from oak, ore and low warm light.",
+    summary: "A 60-cover restaurant rendered in low, warm, layered light.",
     description: [
-      "A ground-floor restaurant arranged as a sequence of rooms, each with its own light level — from a bright bar to an intimate back dining room.",
-      "Reclaimed oak, blackened steel and hand-thrown ceramics give the room a worked, tactile surface that ages well with service.",
+      "A restaurant interior visualized as a sequence of rooms, each with its own light level — from a bright bar to an intimate back dining room.",
+      "Reclaimed oak, blackened steel and hand-thrown ceramics were textured and lit to feel worked and warm, the way the space would read mid-service.",
     ],
-    services: ["Concept", "Interior architecture", "Lighting", "Custom furniture"],
-    cover: img("1567016432779-094069958ea5"),
+    software: ["3ds Max", "V-Ray", "Photoshop"],
+    cover: "/projects/p3.jpeg",
     gallery: [
       img("1600607687939-ce8a6c25118c"),
       img("1616486338812-3dadae4b4ace"),
@@ -95,21 +101,21 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "the-quiet-floor",
+    slug: "Residential-project-2",
     index: "04",
-    title: "The Quiet Floor",
-    category: "Workspace",
-    type: "Studio offices",
-    location: "Porto, PT",
-    year: 2022,
+    title: "Residential project",
+    category: "Residential",
+    type: "Interior Visualization",
+    location: "Perinthalmanna",
+    year: 2023,
     area: "880 m²",
-    summary: "A single open floor zoned by acoustics instead of walls.",
+    summary: "An open-plan workspace visualized as a calm working studio.",
     description: [
-      "Headquarters for a design practice, planned to feel less like an office and more like a working studio. Acoustic baffles, rugs and planting define quiet and active zones without partitions.",
-      "A neutral shell puts the focus on the work and the people — colour enters only through the projects pinned to the walls.",
+      "A workplace visualization that set out to feel less like an office and more like a studio. Acoustic baffles, rugs and planting define quiet and active zones without partitions.",
+      "A neutral shell keeps the focus on people and work — colour enters only through the artwork and greenery placed in the scene.",
     ],
-    services: ["Workplace strategy", "Interior architecture", "Acoustics", "FF&E"],
-    cover: img("1524758631624-e2822e304c36"),
+    software: ["SketchUp", "Lumion"],
+    cover: "/projects/p4.jpeg",
     gallery: [
       img("1565182999561-18d7dc61c393"),
       img("1497366754035-f200968a6e72"),
@@ -118,20 +124,20 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "marrow",
+    slug: "marrow-cafe",
     index: "05",
-    title: "Marrow",
-    category: "Hospitality",
-    type: "Café",
-    location: "Melbourne, AU",
-    year: 2022,
+    title: "Marrow Café",
+    category: "Commercial",
+    type: "Interior Visualization",
+    location: "Manjeri",
+    year: 2023,
     area: "95 m²",
-    summary: "A small café distilled to one counter and one good window.",
+    summary: "A small café distilled to one cast-terrazzo counter and good light.",
     description: [
-      "A corner café designed around a single monolithic counter in cast terrazzo. Everything else recedes so the room reads in a glance.",
-      "Warm plaster, pale timber and a long bench seat make a small footprint feel generous from open to close.",
+      "A corner café visualized around a single monolithic counter in cast terrazzo, with everything else kept quiet so the room reads in a glance.",
+      "Warm plaster, pale timber and a long bench seat were rendered to make a small footprint feel generous from open to close.",
     ],
-    services: ["Concept", "Interior architecture", "Custom terrazzo", "Lighting"],
+    software: ["D5 Render", "Photoshop"],
     cover: img("1600607687939-ce8a6c25118c"),
     gallery: [
       img("1600566753086-00f18fb6b3ea"),
@@ -145,16 +151,16 @@ export const projects: Project[] = [
     index: "06",
     title: "Solis Apartment",
     category: "Residential",
-    type: "Apartment",
-    location: "Barcelona, ES",
-    year: 2021,
+    type: "Interior Visualization",
+    location: "Palakkad",
+    year: 2023,
     area: "110 m²",
-    summary: "A sun-tracking apartment that warms in tone from morning to night.",
+    summary: "A sun-tracking apartment whose tones warm from morning to night.",
     description: [
-      "A renovation that opens the plan toward the southern light, then tunes each room's palette to the time of day it is most used.",
-      "Lime-washed walls, terracotta and aged brass shift in colour as the sun moves across the rooms.",
+      "An apartment visualization tuned to the southern light, with each room's palette set to the time of day it is most used.",
+      "Lime-washed walls, terracotta and aged brass were rendered to shift in colour as the sun moves across the rooms.",
     ],
-    services: ["Interior architecture", "Material design", "FF&E"],
+    software: ["3ds Max", "V-Ray", "Adobe Illustrator"],
     cover: img("1493809842364-78817add7ffb"),
     gallery: [
       img("1618221195710-dd6b41faaea6"),

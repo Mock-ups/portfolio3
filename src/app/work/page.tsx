@@ -3,39 +3,33 @@ import { projects } from "@/lib/projects";
 import { AnimatedHeading } from "@/components/motion/AnimatedHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { ProjectCard } from "@/components/ProjectCard";
-import { DimensionDivider } from "@/components/DimensionDivider";
 
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Selected interior architecture projects across residential, hospitality and workspace.",
+    "Selected 3D architectural and interior visualizations across residential and commercial projects.",
 };
 
 export default function WorkPage() {
-  const years = projects.map((p) => p.year);
-  const span = `${Math.min(...years)}–${Math.max(...years)}`;
-
   return (
-    <section className="shell pt-10 md:pt-16">
-      <p className="eyebrow">Work — Project register</p>
+    <section className="shell pt-16 md:pt-24">
+      <p className="subtitle">
+        <span className="subtitle__dot" />
+        Projects — {projects.length} works
+      </p>
 
-      <h1 className="display-xl mt-6 md:mt-8">
-        <AnimatedHeading trigger="load" delay={0.1} lines={["Selected", "work."]} />
+      <h1 className="h-xxl mt-7 max-w-[14ch]">
+        <AnimatedHeading trigger="load" delay={0.1} lines={["Selected work."]} />
       </h1>
 
-      <Reveal delay={0.4}>
-        <p className="mt-8 max-w-[52ch] text-lg text-graphite leading-relaxed">
-          A register of recent interiors — each resolved as a complete drawing
-          set, from first plan to final fixing.
+      <Reveal delay={0.35}>
+        <p className="lede mt-7 max-w-[56ch]">
+          A selection of recent 3D architectural and interior visualizations —
+          residential and commercial spaces, rendered before they were built.
         </p>
       </Reveal>
 
-      <DimensionDivider
-        className="mt-12 md:mt-16"
-        label={`${projects.length} sheets · ${span}`}
-      />
-
-      <div className="mt-12 md:mt-16 grid md:grid-cols-2 gap-x-6 gap-y-12 md:gap-y-20">
+      <div className="mt-14 md:mt-20 grid md:grid-cols-2 gap-x-6 gap-y-14 md:gap-y-20">
         {projects.map((project, i) => (
           <ProjectCard
             key={project.slug}

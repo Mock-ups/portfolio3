@@ -1,46 +1,49 @@
 import type { Metadata } from "next";
-import { Archivo, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import localFont from "next/font/local";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
-import { Frame } from "@/components/Frame";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
-const archivo = Archivo({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-archivo",
+  variable: "--font-inter",
   display: "swap",
 });
 
-const plexSans = IBM_Plex_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-plex-sans",
+const eudoxus = localFont({
+  variable: "--font-eudoxus",
   display: "swap",
-});
-
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-plex-mono",
-  display: "swap",
+  src: [
+    { path: "../../public/fonts/EudoxusSans-ExtraLight.woff2", weight: "200", style: "normal" },
+    { path: "../../public/fonts/EudoxusSans-Light.woff2", weight: "300", style: "normal" },
+    { path: "../../public/fonts/EudoxusSans-Regular.woff2", weight: "400", style: "normal" },
+    { path: "../../public/fonts/EudoxusSans-Medium.woff2", weight: "500", style: "normal" },
+    { path: "../../public/fonts/EudoxusSans-Bold.woff2", weight: "700", style: "normal" },
+    { path: "../../public/fonts/EudoxusSans-ExtraBold.woff2", weight: "800", style: "normal" },
+  ],
 });
 
 export const metadata: Metadata = {
   title: {
-    default: `${site.name} — ${site.role}`,
-    template: `%s — ${site.name}`,
+    default: `${site.brand} — ${site.role}`,
+    template: `%s — ${site.brand}`,
   },
   description: site.tagline + " " + site.intro,
   keywords: [
-    "interior design",
-    "interior architecture",
+    "3D visualization",
+    "architectural designer",
+    "3D visualizer",
+    "civil engineer",
+    "interior visualization",
+    "Lumion",
+    "3ds Max",
+    "V-Ray",
     site.city,
-    "residential design",
-    "hospitality design",
   ],
   openGraph: {
-    title: `${site.name} — ${site.role}`,
+    title: `${site.brand} — ${site.role}`,
     description: site.tagline,
     type: "website",
   },
@@ -54,10 +57,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${archivo.variable} ${plexSans.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${eudoxus.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Frame />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

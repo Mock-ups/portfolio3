@@ -17,10 +17,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) return { title: "Project not found" };
-  return {
-    title: project.title,
-    description: project.summary,
-  };
+  return { title: project.title, description: project.summary };
 }
 
 export default async function ProjectPage({ params }: Params) {
@@ -40,40 +37,34 @@ export default async function ProjectPage({ params }: Params) {
   ];
 
   return (
-    <article className="shell pt-10 md:pt-16">
+    <article className="shell pt-16 md:pt-24">
       <Link
         href="/work"
-        className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-graphite hover:text-ink transition-colors"
+        className="inline-flex items-center gap-2 text-sm text-slate hover:text-dark transition-colors"
       >
-        <span aria-hidden>←</span> Work
+        <span aria-hidden>←</span> Back to work
       </Link>
 
-      <p className="eyebrow mt-8">
+      <p className="subtitle mt-8">
+        <span className="subtitle__dot" />
         N° {project.index} — {project.category}
       </p>
 
-      <h1 className="display-xl mt-5">
+      <h1 className="h-xxl mt-5 max-w-[16ch]">
         <AnimatedHeading trigger="load" delay={0.1} lines={[project.title]} />
       </h1>
 
-      <Reveal delay={0.35}>
-        <p className="mt-6 max-w-[54ch] text-lg md:text-xl text-graphite leading-relaxed">
-          {project.summary}
-        </p>
+      <Reveal delay={0.3}>
+        <p className="lede mt-6 max-w-[56ch]">{project.summary}</p>
       </Reveal>
 
       {/* Facts */}
-      <Reveal delay={0.45}>
-        <dl className="mt-10 grid grid-cols-2 md:grid-cols-5 border-t border-line">
+      <Reveal delay={0.4}>
+        <dl className="mt-10 grid grid-cols-2 md:grid-cols-5 border border-line rounded-md overflow-hidden bg-line gap-px">
           {facts.map((f) => (
-            <div
-              key={f.k}
-              className="py-4 pr-4 border-b border-line md:border-b-0 md:border-r last:border-r-0"
-            >
-              <dt className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-graphite">
-                {f.k}
-              </dt>
-              <dd className="mt-1 font-display text-base font-semibold">{f.v}</dd>
+            <div key={f.k} className="bg-bg p-5">
+              <dt className="subtitle text-[0.6rem]">{f.k}</dt>
+              <dd className="mt-2 font-display text-base font-bold">{f.v}</dd>
             </div>
           ))}
         </dl>
@@ -81,10 +72,10 @@ export default async function ProjectPage({ params }: Params) {
 
       {/* Cover */}
       <Reveal delay={0.2} y={28} className="mt-12 md:mt-16">
-        <div className="plate">
+        <div className="media">
           <ParallaxImage
             src={project.cover}
-            alt={`${project.title} — interior`}
+            alt={`${project.title} — visualization`}
             priority
             sizes="100vw"
             intensity={50}
@@ -93,29 +84,27 @@ export default async function ProjectPage({ params }: Params) {
         </div>
       </Reveal>
 
-      {/* Narrative + services */}
+      {/* Narrative + software */}
       <div className="mt-16 md:mt-24 grid md:grid-cols-12 gap-10">
         <div className="md:col-span-7 md:col-start-2">
           {project.description.map((p, i) => (
             <Reveal key={i} delay={i * 0.05}>
-              <p className="text-lg leading-relaxed mb-6 max-w-[58ch]">{p}</p>
+              <p className="text-lg leading-relaxed mb-6 max-w-[58ch] text-dark/90">
+                {p}
+              </p>
             </Reveal>
           ))}
         </div>
         <div className="md:col-span-3">
           <Reveal>
-            <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-graphite mb-4">
-              Services
-            </p>
-            <ul className="space-y-2">
-              {project.services.map((s) => (
+            <p className="subtitle text-[0.65rem] mb-5">Software</p>
+            <ul className="space-y-3">
+              {project.software.map((s) => (
                 <li
                   key={s}
-                  className="flex items-baseline gap-3 text-sm border-b border-line pb-2"
+                  className="flex items-center gap-3 text-sm border-b border-line pb-3"
                 >
-                  <span className="text-redline" aria-hidden>
-                    ✳
-                  </span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent" />
                   {s}
                 </li>
               ))}
@@ -148,17 +137,15 @@ export default async function ProjectPage({ params }: Params) {
         className="group block mt-24 md:mt-36 border-t border-line pt-8"
       >
         <div className="flex items-center justify-between gap-4">
-          <span className="font-mono text-xs uppercase tracking-[0.14em] text-graphite">
-            Next — N° {next.index}
-          </span>
+          <span className="subtitle text-[0.65rem]">Next — N° {next.index}</span>
           <span
-            className="font-mono text-xs text-graphite group-hover:translate-x-1 transition-transform"
+            className="text-sm text-slate group-hover:translate-x-1 transition-transform"
             aria-hidden
           >
             →
           </span>
         </div>
-        <p className="display-lg mt-3 group-hover:text-redline transition-colors">
+        <p className="h-xl mt-3 group-hover:text-accent transition-colors">
           {next.title}
         </p>
       </Link>
@@ -176,7 +163,7 @@ function Plate({
   ratio: string;
 }) {
   return (
-    <div className={`plate ${ratio}`}>
+    <div className={`media ${ratio}`}>
       <Image
         src={src}
         alt={alt}

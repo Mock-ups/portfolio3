@@ -1,32 +1,32 @@
 /**
- * Single source of truth for studio content.
- * ── Everything here is PLACEHOLDER copy. Swap these values to
- *    rebrand the whole site in one place.
+ * Single source of truth for portfolio content (Muhammed Ramees).
+ * Update these values to change details across the whole site.
  */
 export const site = {
-  name: "Form & Field",
-  shortName: "F&F",
-  role: "Interior Design Studio",
-  founded: 2014,
-  city: "Lisbon",
-  country: "Portugal",
+  name: "Muhammed Ramees",
+  brand: "RMS design studio",
+  shortName: "RMS",
+  role: "Architectural Designer & 3D Visualizer",
+  discipline: "Civil Engineer",
+  city: "Dubai",
+  country: "UAE",
+  locationLine: "Dubai, UAE",
 
-  tagline: "Interiors composed with architectural precision.",
+  tagline: "Translating architectural concepts into photorealistic 3D.",
   intro:
-    "We design residential and hospitality interiors where structure, light and material are resolved together — so a room feels inevitable, not decorated.",
+    "I'm a civil engineer with a strong passion for design, specializing in 3D architectural and interior visualization. I blend technical knowledge with creative design to deliver high-quality, photorealistic visuals for residential and commercial projects.",
 
-  email: "studio@formandfield.com",
-  phone: "+351 210 000 000",
-  address: "Rua das Flores 42, 1200-194 Lisbon, Portugal",
+  email: "mhdrameesak@gmail.com",
+  phone: "+91 75618 71134",
+  address: "Dubai, UAE",
 
+  availability: "Open to freelance & full-time work",
+
+  // PLACEHOLDER links — add real profile URLs.
   socials: [
-    { label: "Instagram", handle: "@formandfield", href: "https://instagram.com" },
-    { label: "Pinterest", handle: "formandfield", href: "https://pinterest.com" },
-    { label: "LinkedIn", handle: "Form & Field", href: "https://linkedin.com" },
+    { label: "Instagram", href: "https://www.instagram.com/r_m_s_designstudio" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/ramees-ak-4a42b6315/" },
   ],
-
-  // Single short stats line for the title block / footer
-  est: "EST. MMXIV",
 } as const;
 
 export const nav = [

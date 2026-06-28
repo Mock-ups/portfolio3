@@ -7,20 +7,22 @@ import { Magnetic } from "./motion/Magnetic";
 import { cn } from "@/lib/utils";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+const ERROR = "#ea384c";
 
 type Errors = Partial<Record<"name" | "email" | "message", string>>;
 
 const projectTypes = [
-  "Residential",
-  "Hospitality",
-  "Workspace",
+  "Residential visualization",
+  "Commercial visualization",
+  "Interior render",
+  "Full project / freelance",
   "Something else",
 ];
 
 const labelCls =
-  "font-mono text-[0.65rem] uppercase tracking-[0.16em] text-graphite";
+  "block text-xs font-semibold uppercase tracking-[0.12em] text-slate mb-2";
 const fieldCls =
-  "w-full bg-transparent border-b border-line py-3 text-ink placeholder:text-graphite/60 focus:border-ink transition-colors";
+  "w-full bg-bg border border-line rounded-md px-4 py-3 text-dark placeholder:text-slate/60 focus:border-dark focus:outline-none transition-colors";
 
 export function ContactForm() {
   const reduce = useReducedMotion();
@@ -56,9 +58,8 @@ export function ContactForm() {
     setErrors(e);
     if (Object.keys(e).length > 0) return;
 
-    // No backend yet — hand off to the visitor's mail client.
-    const subject = `New enquiry — ${values.type} project`;
-    const body = `Name: ${values.name}\nEmail: ${values.email}\nProject type: ${values.type}\n\n${values.message}`;
+    const subject = `New enquiry — ${values.type}`;
+    const body = `Name: ${values.name}\nEmail: ${values.email}\nType: ${values.type}\n\n${values.message}`;
     window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(
       subject
     )}&body=${encodeURIComponent(body)}`;
@@ -73,25 +74,22 @@ export function ContactForm() {
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: EASE }}
-          className="border border-line p-8 md:p-10"
+          className="border border-line rounded-lg p-8 md:p-10"
         >
-          <p className="eyebrow mb-5">Message ready</p>
-          <h3 className="font-display text-2xl md:text-3xl font-bold tracking-tight">
-            Thank you, {values.name.split(" ")[0] || "there"}.
-          </h3>
-          <p className="mt-4 max-w-[48ch] text-graphite leading-relaxed">
-            Your email app should have opened with the message drafted to us. If
-            it didn&rsquo;t, write to us directly at{" "}
-            <a href={`mailto:${site.email}`} className="ulink text-ink">
+          <p className="subtitle mb-5">
+            <span className="subtitle__dot" />
+            Message ready
+          </p>
+          <h3 className="h-lg">Thank you, {values.name.split(" ")[0] || "there"}.</h3>
+          <p className="mt-4 max-w-[48ch] text-slate leading-relaxed">
+            Your email app should have opened with the message drafted. If it
+            didn&rsquo;t, write to me directly at{" "}
+            <a href={`mailto:${site.email}`} className="ulink text-dark">
               {site.email}
             </a>
-            . We reply within two working days.
+            . I reply within two days.
           </p>
-          <button
-            type="button"
-            onClick={() => setSent(false)}
-            className="mt-8 btn"
-          >
+          <button type="button" onClick={() => setSent(false)} className="mt-8 btn btn--outline">
             Send another
           </button>
         </motion.div>
@@ -102,9 +100,9 @@ export function ContactForm() {
           noValidate
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="space-y-8"
+          className="space-y-6"
         >
-          <div className="grid sm:grid-cols-2 gap-8">
+          <div className="grid sm:grid-cols-2 gap-6">
             <div>
               <label htmlFor="name" className={labelCls}>
                 Name
@@ -118,11 +116,12 @@ export function ContactForm() {
                 onChange={(e) => update("name", e.target.value)}
                 aria-invalid={!!errors.name}
                 aria-describedby={errors.name ? "name-error" : undefined}
-                className={cn(fieldCls, errors.name && "border-redline")}
+                className={fieldCls}
+                style={errors.name ? { borderColor: ERROR } : undefined}
                 placeholder="Your name"
               />
               {errors.name && (
-                <p id="name-error" className="mt-2 text-xs text-redline">
+                <p id="name-error" className="mt-2 text-xs" style={{ color: ERROR }}>
                   {errors.name}
                 </p>
               )}
@@ -141,11 +140,12 @@ export function ContactForm() {
                 onChange={(e) => update("email", e.target.value)}
                 aria-invalid={!!errors.email}
                 aria-describedby={errors.email ? "email-error" : undefined}
-                className={cn(fieldCls, errors.email && "border-redline")}
+                className={fieldCls}
+                style={errors.email ? { borderColor: ERROR } : undefined}
                 placeholder="you@email.com"
               />
               {errors.email && (
-                <p id="email-error" className="mt-2 text-xs text-redline">
+                <p id="email-error" className="mt-2 text-xs" style={{ color: ERROR }}>
                   {errors.email}
                 </p>
               )}
@@ -173,7 +173,7 @@ export function ContactForm() {
 
           <div>
             <label htmlFor="message" className={labelCls}>
-              Tell us about the space
+              Tell me about the project
             </label>
             <textarea
               id="message"
@@ -183,18 +183,19 @@ export function ContactForm() {
               onChange={(e) => update("message", e.target.value)}
               aria-invalid={!!errors.message}
               aria-describedby={errors.message ? "message-error" : undefined}
-              className={cn(fieldCls, "resize-none", errors.message && "border-redline")}
-              placeholder="Location, rooms, timeline, and what you're hoping for…"
+              className={cn(fieldCls, "resize-none")}
+              style={errors.message ? { borderColor: ERROR } : undefined}
+              placeholder="Project type, location, timeline, and what you're hoping for…"
             />
             {errors.message && (
-              <p id="message-error" className="mt-2 text-xs text-redline">
+              <p id="message-error" className="mt-2 text-xs" style={{ color: ERROR }}>
                 {errors.message}
               </p>
             )}
           </div>
 
           <Magnetic>
-            <button type="submit" className="btn btn--solid">
+            <button type="submit" className="btn">
               Send enquiry
               <span className="btn__arrow" aria-hidden>
                 →
