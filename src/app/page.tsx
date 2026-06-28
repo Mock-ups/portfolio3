@@ -32,7 +32,7 @@ export default function Home() {
           page into the hero's columns, staying visible from the hero through
           every section to the bottom. mix-blend-difference keeps them legible
           over both the dark hero/footer and the light sections. */}
-      <div className="pointer-events-none fixed inset-0 z-30" aria-hidden>
+      <div className="pointer-events-none fixed inset-0 z-30 hidden md:block" aria-hidden>
         {COLUMN_LINES.map((left, i) => (
           <span
             key={i}
