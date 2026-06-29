@@ -73,6 +73,14 @@ export default async function ProjectPage({ params }: Params) {
         <AnimatedHeading trigger="load" delay={0.1} lines={[project.title]} />
       </h1>
 
+      {project.client && (
+        <Reveal delay={0.2}>
+          <p className="mt-4 text-sm font-medium text-accent">
+            Project completed for {project.client}
+          </p>
+        </Reveal>
+      )}
+
       <Reveal delay={0.3}>
         <p className="lede mt-6 max-w-[56ch]">{project.summary}</p>
       </Reveal>

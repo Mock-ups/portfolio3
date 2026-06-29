@@ -13,6 +13,8 @@ export type Project = {
   location: string;
   /** optional override for the card meta line (defaults to category · type · location) */
   meta?: string;
+  /** optional studio/client credit shown under the title on the detail page */
+  client?: string;
   year: number;
   area: string;
   summary: string; // one-line, used in lists
@@ -42,6 +44,7 @@ export const projects: Project[] = [
     type: "Interior Exterior 3d Design",
     location: "Perinthalmanna",
     meta: "Commercial Interior Exterior 3d Design",
+    client: "UNC Architecture",
     year: 2025,
     area: "",
     summary:
@@ -98,6 +101,7 @@ export const projects: Project[] = [
     type: "Exterior Facade Design",
     location: "Kodungallur",
     meta: "Exterior Facade design Kodungallur",
+    client: "UNC Architecture",
     year: 2025,
     area: "",
     summary:
