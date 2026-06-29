@@ -50,7 +50,7 @@ export const projects: Project[] = [
       "An interior and exterior 3D visualization for Secura Centre, a commercial mall in Perinthalmanna. The brief was to picture the whole shopping experience before construction — circulation, materials and lighting resolved across the building inside and out.",
       "The interior design covered the public spaces in detail: the main mall interior, the food court, and both the ladies' and gents' washrooms — each visualized with its own finishes, fixtures and lighting so the client could sign off every zone from the renders.",
     ],
-    software: ["3ds Max", "V-Ray", "Photoshop"],
+    software: ["SketchUp", "Lumion", "D5 Render", "Photoshop"],
     cover: "/projects/p1.jpeg",
     rotateGallery: true,
     gallery: [
@@ -131,7 +131,7 @@ export const projects: Project[] = [
       "An exterior 3D visualization for a private residence in Calicut. The brief was to picture the house from the street and garden before it was built — massing, roofline and the way the elevations sit on the plot all resolved in 3D.",
       "Cladding, stonework, glazing and landscaping were rendered in natural daylight to show exactly how the home would look on completion, giving the owners a clear view to sign off the design.",
     ],
-    software: ["3ds Max", "V-Ray", "Photoshop"],
+    software: ["SketchUp", "Lumion", "Photoshop"],
     cover: "/projects/p3.jpeg",
     gallery: [
       "/projects/p3/p32.jpeg",
@@ -154,7 +154,7 @@ export const projects: Project[] = [
       "An interior 3D visualization of a combined living and dining area for a home in Perinthalmanna. The brief was to see how the two spaces would flow together before fit-out — furniture layout, circulation and sightlines all resolved in 3D.",
       "Wall finishes, flooring, the TV unit and dining setup were rendered with warm, layered lighting so the owners could picture the finished room day and evening, and sign off the palette and furniture from the images.",
     ],
-    software: ["SketchUp", "Lumion"],
+    software: ["SketchUp", "D5 Render", "Photoshop"],
     cover: "/projects/p4.jpeg",
     gallery: [
       "/projects/p4/P42.jpeg",
@@ -176,7 +176,7 @@ export const projects: Project[] = [
       "An interior 3D visualization of a dining area and open kitchen designed as one connected space. The brief was to see how the kitchen, island and dining setup would work together before fit-out — layout, circulation and sightlines all resolved in 3D.",
       "Cabinetry, countertops, backsplash and the dining furniture were rendered with warm, layered lighting so the owners could picture the finished room and sign off the finishes and layout from the images.",
     ],
-    software: ["D5 Render", "Photoshop"],
+    software: ["SketchUp", "D5 Render", "Photoshop"],
     cover: "/projects/p5.jpeg",
     gallery: [
       "/projects/p5/p51.jpeg",
@@ -199,7 +199,7 @@ export const projects: Project[] = [
       "An interior 3D visualization of a family living area for a home in Palakkad. The brief was to picture an everyday gathering space before fit-out — seating layout, the TV wall and circulation all resolved in 3D.",
       "Wall finishes, flooring, the feature wall and furniture were rendered with warm, layered lighting so the family could see how the room would feel day to evening, and sign off the palette and layout from the images.",
     ],
-    software: ["3ds Max", "V-Ray", "Adobe Illustrator"],
+    software: ["SketchUp", "D5 Render", "Photoshop"],
     cover: "/projects/p6.jpeg",
     gallery: [
       "/projects/p6/p61.jpeg",
@@ -221,7 +221,7 @@ export const projects: Project[] = [
       "An interior 3D visualization of a bedroom for a home in Palakkad. The brief was to picture the room before fit-out — bed placement, wardrobe and circulation all resolved in 3D.",
       "Wall finishes, flooring, the headboard wall and wardrobe were rendered with soft, warm lighting so the owners could see how the room would feel and sign off the palette and layout from the images.",
     ],
-    software: ["3ds Max", "V-Ray", "Photoshop"],
+    software: ["SketchUp", "D5 Render", "Nano Banana AI"],
     cover: "/projects/p7.jpeg",
     gallery: [
       "/projects/p7/p71.jpeg",
