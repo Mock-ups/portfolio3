@@ -3,7 +3,6 @@ import { site } from "@/lib/site";
 import { experience, education, skills, softwareMeta } from "@/lib/resume";
 import { AnimatedHeading } from "@/components/motion/AnimatedHeading";
 import { Reveal } from "@/components/motion/Reveal";
-import { ParallaxImage } from "@/components/motion/ParallaxImage";
 
 export const metadata: Metadata = {
   title: "About",
@@ -50,13 +49,24 @@ export default function AboutPage() {
           </div>
 
           <Reveal delay={0.3} y={28} className="lg:col-span-5">
-            <div className="media aspect-4/5">
-              <ParallaxImage
-                src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=1200"
-                alt="At work"
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                intensity={50}
-                className="h-full w-full"
+            <div className="relative mx-auto w-full max-w-[360px] aspect-square">
+              {/* Accent circle with the portrait clipped inside it */}
+              <div className="absolute inset-0 rounded-full bg-accent overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/me.png"
+                  alt="Muhammed Ramees"
+                  className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[126%] w-auto max-w-none object-bottom"
+                />
+              </div>
+              {/* Same portrait on top (upper half only) so the head rises out of the circle */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/me.png"
+                alt=""
+                aria-hidden="true"
+                className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 h-[126%] w-auto max-w-none object-bottom"
+                style={{ clipPath: "inset(0 0 50% 0)" }}
               />
             </div>
           </Reveal>

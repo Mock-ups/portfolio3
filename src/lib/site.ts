@@ -4,8 +4,8 @@
  */
 export const site = {
   name: "Muhammed Ramees",
-  brand: "RMS design studio",
-  shortName: "RMS",
+  brand: "Muhammed Ramees",
+  shortName: "MR",
   role: "Architectural Designer & 3D Visualizer",
   discipline: "Civil Engineer",
   city: "Dubai",
